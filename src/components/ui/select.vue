@@ -5,7 +5,7 @@
 
       <div class="ui-select__selected-item" @click="toggleOptionsList">
         <div class="ui-select__selected-item-text">
-          {{ modelValue.name }}
+          {{ selectedOption?.name || "Не выбрано" }}
         </div>
         <div class="ui-select__selected-item-icon">
           <chevron-icon :is-chevron-up="isSelectOptionsOpen"/>
@@ -36,7 +36,7 @@ export default {
 </script>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const props = defineProps({
   labelText: {
@@ -52,6 +52,9 @@ const props = defineProps({
     required: true,
   },
 });
+console.log(props.options[0])
+
+const selectedOption = ref(props.options[0])
 
 const emits = defineEmits(["update:modelValue"]);
 const isSelectOptionsOpen = ref(false);
@@ -62,6 +65,7 @@ const toggleOptionsList = () => {
 
 const selectOption = (option) => {
   emits('update:modelValue', option);
+  selectedOption.value = option;
   toggleOptionsList();
 }
 </script>
@@ -71,7 +75,8 @@ const selectOption = (option) => {
   &__wrapper {
     display: flex;
     flex-direction: column;
-    max-width: 288px;
+    width: 288px;
+    position: relative;
   }
 
   &__label {
@@ -106,6 +111,10 @@ const selectOption = (option) => {
   }
 
   &__options {
+    position: absolute;
+    width: 100%;
+    bottom: -100%;
+    z-index: 3;
     flex-direction: column;
     justify-content: center;
     display: none;
