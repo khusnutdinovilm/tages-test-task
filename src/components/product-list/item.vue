@@ -67,118 +67,117 @@ const getLocalePrice = (price) => {
   const roundedPrice = Math.round(price * 100) / 100;
   const hasFractionalPart = Math.round(price) !== price;
 
-  console.log('hasFractionalPart', hasFractionalPart)
-
   return hasFractionalPart
     ? roundedPrice.toLocaleString("ru-RU", { minimumFractionDigits: 2 })
     : roundedPrice.toLocaleString("ru-RU");
 };
-
-// const toggleCart =
 </script>
 
-<style lang="scss">
+<style>
 .product-card {
-  font-family: SF UI Text;
+  font-family: var(--main-font-style);
+}
 
-  &__wrapper {
-    position: relative;
-    max-width: 336px;
-    max-height: 352px;
-    border: 1px solid #eeeeee;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: space-between;
-    gap: 23px;
-    padding: 9px 12px;
-  }
+.product-card__wrapper {
+  position: relative;
+  max-width: 336px;
+  height: 352px;
+  border: 1px solid var(--card-border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+  gap: 23px;
+  padding: 9px 12px;
+}
 
-  &__has-discount {
-    position: absolute;
-    background-color: #eb5757;
-    padding: 3px 16px;
-    top: 8px;
-    left: 0;
-    font-family: SF Pro Display;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 18.2px;
-    letter-spacing: 0.01em;
-    color: #ffffff;
-  }
+.product-card__has-discount {
+  position: absolute;
+  background-color: #eb5757;
+  padding: 3px 16px;
+  top: 8px;
+  left: 0;
+  font-family: var(--secondary-font-style);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18.2px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
 
-  &__top {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+.product-card__top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  &__image {
-    width: 238px;
-    height: 237px;
-  }
+.product-card__image {
+  width: 238px;
+  height: 237px;
+}
 
-  &__code {
-    font-size: 10px;
-    font-weight: 400;
-    line-height: 14px;
-    letter-spacing: 0.02em;
-    color: #888888;
-    margin-bottom: 6px;
-  }
+.product-card__code {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.02em;
+  color: var(--secondary-font-color);
+  margin-bottom: 6px;
+}
 
-  &__name {
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 22.4px;
-    letter-spacing: 0.02em;
-  }
+.product-card__name {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22.4px;
+  letter-spacing: 0.02em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 
-  &__bottom {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-  }
+.product-card__bottom {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
 
-  &__price {
-    align-self: flex-end;
-    display: flex;
-    flex-flow: row nowrap;
+.product-card__price {
+  align-self: flex-end;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 10px;
+}
 
-    gap: 10px;
-  }
+.product-card__old-price,
+.product-card__current-price {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.02em;
+}
 
-  &__old-price,
-  &__current-price {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 22.4px;
-    letter-spacing: 0.02em;
-  }
+.product-card__old-price {
+  color: var(--secondary-font-color);
+  text-decoration: line-through;
+}
 
-  &__old-price {
-    color: #888888;
-    text-decoration: line-through;
-  }
+.product-card__btns {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-end;
+  gap: 11px;
+}
 
-  &__btns {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-end;
-    gap: 11px;
-  }
-
-  &__cart-btn,
-  &__favorite-btn {
-    width: 36px;
-    height: 36px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-  }
+.product-card__cart-btn,
+.product-card__favorite-btn {
+  width: 36px;
+  height: 36px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
 }
 </style>
