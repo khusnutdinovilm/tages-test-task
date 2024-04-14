@@ -1,0 +1,11 @@
+:root {
+  /* global-variables */
+  --main-font-style: "SF UI Text", sans-serif;
+  --secondary-font-style: "SF Pro Display", sans-serif;
+
+  --main-font-color: #000000;
+  --secondary-font-color: #888888;
+  
+  /* card-variables */
+  --card-border-color: #eeeeee;
+}

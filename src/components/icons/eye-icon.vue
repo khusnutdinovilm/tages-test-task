@@ -58,7 +58,7 @@ export default {
 </script>
 
 <script setup>
-const props = defineProps({
+defineProps({
   isEyeOpen: {
     type: Boolean,
     required: false,

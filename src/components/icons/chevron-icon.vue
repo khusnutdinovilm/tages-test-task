@@ -1,7 +1,7 @@
 <template>
   <svg
     class="chevron-svg"
-    :class="{'chevron-svg_open': isChevronUp}"
+    :class="{ 'chevron-svg_open': isChevronUp }"
     width="24"
     height="24"
     viewBox="0 0 24 24"
@@ -25,24 +25,24 @@
 
 <script>
 export default {
-  name: 'chevron-icon'
-}
+  name: "chevron-icon",
+};
 </script>
 
 <script setup>
-const props = defineProps({
+defineProps({
   isChevronUp: {
     type: Boolean,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 </script>
 
-<style lang="scss">
+<style>
 .chevron-svg {
-  transition: all .3s;
-  &_open {
-    transform: rotate(-180deg);
-  }
+  transition: all 0.3s;
+}
+.chevron-svg_open {
+  transform: rotate(-180deg);
 }
 </style>

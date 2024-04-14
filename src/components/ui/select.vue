@@ -5,10 +5,10 @@
 
       <div class="ui-select__selected-item" @click="toggleOptionsList">
         <div class="ui-select__selected-item-text">
-          {{ selectedOption?.name || "Не выбрано" }}
+          {{ selectedOption?.name || emptyOption }}
         </div>
         <div class="ui-select__selected-item-icon">
-          <chevron-icon :is-chevron-up="isSelectOptionsOpen"/>
+          <chevron-icon :is-chevron-up="isSelectOptionsOpen" />
         </div>
       </div>
 
@@ -16,6 +16,13 @@
         class="ui-select__options"
         :class="{ 'ui-select__options_open': isSelectOptionsOpen }"
       >
+        <div
+          v-if="!!emptyOption"
+          class="ui-select__option"
+          @click="selectOption({})"
+        >
+          {{ emptyOption }}
+        </div>
         <div
           v-for="option in options"
           :key="option.id"
@@ -36,7 +43,7 @@ export default {
 </script>
 
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 const props = defineProps({
   labelText: {
@@ -47,14 +54,17 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  emptyOption: {
+    type: String,
+    required: false,
+  },
   modelValue: {
     type: Object,
     required: true,
   },
 });
-console.log(props.options[0])
 
-const selectedOption = ref(props.options[0])
+const selectedOption = ref(props.modelValue);
 
 const emits = defineEmits(["update:modelValue"]);
 const isSelectOptionsOpen = ref(false);
@@ -64,80 +74,86 @@ const toggleOptionsList = () => {
 };
 
 const selectOption = (option) => {
-  emits('update:modelValue', option);
+  emits("update:modelValue", option);
   selectedOption.value = option;
   toggleOptionsList();
-}
+};
 </script>
 
-<style lang="scss">
+<style>
 .ui-select {
-  &__wrapper {
-    display: flex;
-    flex-direction: column;
-    width: 288px;
-    position: relative;
-  }
+}
 
-  &__label {
-    font-family: SF Pro Display;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 18px;
-    letter-spacing: 0.03em;
-    color: #4f4f4f;
-    cursor: pointer;
-    margin-left: 16px;
-    margin-bottom: 6px;
-  }
+.ui-select__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 288px;
+  position: relative;
+}
 
-  &__selected-item {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 9px 16px 10px;
-    background-color: #f2f2f2;
-    cursor: pointer;
+.ui-select__label {
+  font-family: var(--secondary-font-style);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0.03em;
+  color: #4f4f4f;
+  cursor: pointer;
+  margin-left: 16px;
+  margin-bottom: 6px;
+}
 
-    &-text {
-      font-family: SF Pro Display;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 21px;
-      letter-spacing: 0.03em;
-      color: #000000;
-    }
-  }
+.ui-select__selected-item {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 16px 10px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
-  &__options {
-    position: absolute;
-    width: 100%;
-    bottom: -100%;
-    z-index: 3;
-    flex-direction: column;
-    justify-content: center;
-    display: none;
+.ui-select__selected-item-text {
+  font-family: var(--secondary-font-style);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.03em;
+  color: var(--main-font-color);
+}
 
-    &_open {
-      display: flex;
-    }
-  }
+.ui-select__options {
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  z-index: 2;
+  flex-direction: column;
+  display: flex;
+  height: 0;
+  max-height: 140px;
+  overflow-y: hidden;
+  transition: height 0.3s ease;
+}
 
-  &__option {
-    background-color: #f2f2f2;
-    padding: 9px 16px 10px;
-    font-family: SF Pro Display;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0.03em;
-    color: #000000;
-    cursor: pointer;
+.ui-select__options_open {
+  height: auto;
+  border-top: 1px solid black;
+}
 
-    &:hover {
-      background-color: #c9c9c9;
-    }
-  }
+.ui-select__option {
+  background-color: #f2f2f2;
+  padding: 9px 16px 10px;
+  font-family: var(--secondary-font-style);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0.03em;
+  color: #000000;
+  cursor: pointer;
+}
+
+.ui-select__option:hover {
+  background-color: #c9c9c9;
 }
 </style>
