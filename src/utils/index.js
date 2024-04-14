@@ -1,3 +1,5 @@
+export const prefixUrl = process.env.NODE_ENV === "production" ? "/tages-test-task/" : "/";
+
 export const isInCart = (cartItem) => {
   const cartItems = JSON.parse(localStorage.getItem("cart-items"));
   return !!cartItems ? cartItems.some((item) => item.id === cartItem.id) : false;

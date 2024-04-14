@@ -34,6 +34,8 @@
 </template>
 
 <script setup>
+import { prefixUrl } from "@/utils";
+
 import ProductListFilter from "@/components/product-list/filter.vue";
 import ProductListItem from "@/components/product-list/item.vue";
 
@@ -60,8 +62,9 @@ const selectedSort = ref({});
 const selectedMaterial = ref({});
 const materailsOptions = ref([]);
 const getMaterials = async () => {
+  const url = prefixUrl + "db/materials.json";
   try {
-    const response = await fetch("/db/materials.json");
+    const response = await fetch(url);
     return await response.json();
   } catch (error) {}
 };

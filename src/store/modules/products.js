@@ -1,3 +1,5 @@
+import { prefixUrl } from "@/utils";
+
 export default {
   namespaced: true,
   state: {
@@ -9,14 +11,15 @@ export default {
   mutations: {
     setProducts(state, products) {
       state.products = products;
-    }
+    },
   },
   actions: {
     async getProducts({ commit }) {
       try {
-        const response = await fetch("/db/items.json");
+        const url = prefixUrl + "db/items.json";
+        const response = await fetch(url);
         const products = await response.json();
-        commit('setProducts', products);
+        commit("setProducts", products);
       } catch (error) {}
     },
   },
