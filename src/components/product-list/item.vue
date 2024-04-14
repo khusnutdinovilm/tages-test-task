@@ -80,7 +80,8 @@ const getLocalePrice = (price) => {
 
 .product-card__wrapper {
   position: relative;
-  max-width: 336px;
+  /* max-width: 336px; */
+  max-width: 310px;
   height: 352px;
   border: 1px solid var(--card-border-color);
   display: flex;

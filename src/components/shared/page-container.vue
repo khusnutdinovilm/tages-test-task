@@ -60,7 +60,8 @@ defineProps({
 .page-container__wrapper {
   max-width: 1488px;
   min-height: 100vh;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
+  /* box-sizing: content-box; */
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -102,7 +102,7 @@ onMounted(async () => {
     selectedSort.value = sortOptions.value[0];
     materailsOptions.value = (await getMaterials()) || [];
 
-    store.dispatch("products/getProducts");
+    await store.dispatch("products/getProducts");
 
     isProductsLoading.value = false;
   } catch (error) {}
@@ -150,14 +150,16 @@ onMounted(async () => {
   }
 
   .product-list__items {
-    grid-template-columns: repeat(auto-fill, 360px);
+    grid-template-columns: repeat(auto-fill, 336px);
     justify-content: start;
+    grid-gap: 42px;
+
   }
 }
 
-@media (min-width: 791px) {
+/* @media (min-width: 791px) {
   .product-list__items {
     grid-gap: 42px;
   }
-}
+} */
 </style>
