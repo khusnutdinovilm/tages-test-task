@@ -19,35 +19,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { SelectOptionType } from "@/types";
+import { ProductsFilterProps } from "@/types/props";
+import { ProductsFilterEmits } from "@/types/emits";
+
 import { ref, watch } from "vue";
 
-const props = defineProps({
-  selectedSort: {
-    type: Object,
-    required: true,
-  },
-  sortOptions: {
-    type: Array,
-    required: true,
-  },
-  selectedMaterial: {
-    type: Object,
-    required: true,
-  },
-  materialsOptions: {
-    type: Array,
-    required: true,
-  },
-});
-const emits = defineEmits(["update:selectedSort", "update:selectedMaterial"]);
+const props = defineProps<ProductsFilterProps>();
+const emits = defineEmits<ProductsFilterEmits>();
 
-const selectedSort = ref(props.selectedSort);
+const selectedSort = ref<SelectOptionType>(props.selectedSort);
 watch(selectedSort, () => emits("update:selectedSort", selectedSort.value));
 
-const selectedMaterial = ref(props.selectedMaterial);
+const selectedMaterial = ref<SelectOptionType>(props.selectedMaterial);
 watch(selectedMaterial, () =>
-  emits("update:selectedMaterial", selectedMaterial.value)
+  emits("update:selectedMaterial", selectedMaterial.value),
 );
 </script>
 

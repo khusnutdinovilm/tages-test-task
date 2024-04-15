@@ -35,19 +35,16 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ProductCardProps } from "@/types/props";
+import { ProductCardEmits } from "@/types/emits";
+
 import { ref, computed } from "vue";
 
 import { isInCart, isInFavorite } from "@/utils";
 
-const props = defineProps({
-  product: {
-    type: Object,
-    required: true,
-  },
-});
-
-const emits = defineEmits(["manage-cart", "manage-favorite"]);
+const props = defineProps<ProductCardProps>();
+const emits = defineEmits<ProductCardEmits>();
 
 const hasDiscount = computed(() => !!props.product.price.old_price);
 
@@ -63,9 +60,11 @@ const manageFavorite = () => {
   isProductInFavorite.value = !isProductInFavorite.value;
 };
 
-const getLocalePrice = (price) => {
-  const roundedPrice = Math.round(price * 100) / 100;
-  const hasFractionalPart = Math.round(price) !== price;
+const getLocalePrice = (price: number | null): string => {
+  if (!price) return "";
+
+  const roundedPrice: number = Math.round(price * 100) / 100;
+  const hasFractionalPart: boolean = Math.round(price) !== price;
 
   return hasFractionalPart
     ? roundedPrice.toLocaleString("ru-RU", { minimumFractionDigits: 2 })

@@ -25,31 +25,21 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "page-container",
 };
 </script>
 
-<script setup>
-import Breadcrumbs from "./breadcrumbs";
+<script setup lang="ts">
+import { PageContainerProps } from "@/types/props";
 
-defineProps({
-  withoutBreadcrumbs: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  loadingContent: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
-  pageContentEmpty: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
+import Breadcrumbs from "./breadcrumbs.vue";
+
+withDefaults(defineProps<PageContainerProps>(), {
+  withoutBreadcrumbs: false,
+  loadingContent: true,
+  pageContentEmpty: true,
 });
 </script>
 

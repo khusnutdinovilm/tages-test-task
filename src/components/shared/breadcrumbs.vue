@@ -16,9 +16,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-
-const breadcrumbs = ref([
+const breadcrumbs = [
   {
     to: "",
     name: "Главная",
@@ -31,7 +29,7 @@ const breadcrumbs = ref([
     to: "",
     name: "Комплекты стеллажных систем",
   },
-]);
+];
 </script>
 
 <style>
@@ -59,12 +57,12 @@ const breadcrumbs = ref([
 .breadcrumbs__link,
 .breadcrumbs__del {
   cursor: pointer;
-  color:  var(--secondary-font-color);
+  color: var(--secondary-font-color);
   text-decoration: none;
 }
 
 .breadcrumbs__link_active {
-  color:  var(--main-font-color);
+  color: var(--main-font-color);
   cursor: default;
   pointer-events: none;
 }

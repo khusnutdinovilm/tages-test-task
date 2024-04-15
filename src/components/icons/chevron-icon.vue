@@ -23,18 +23,17 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "chevron-icon",
 };
 </script>
 
-<script setup>
-defineProps({
-  isChevronUp: {
-    type: Boolean,
-    required: false,
-  },
+<script setup lang="ts">
+import { ChevronIconProps } from "@/types/props";
+
+withDefaults(defineProps<ChevronIconProps>(), {
+  isChevronUp: false,
 });
 </script>
 

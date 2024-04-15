@@ -1,6 +1,6 @@
 <template>
   <page-container
-    :loading-content="isProductsLoading"
+    :loadingContent="isProductsLoading"
     :page-content-empty="!products.length && !isProductsLoading"
   >
     <template #page-title> Комплекты стеллажных систем </template>
@@ -33,7 +33,9 @@
   </page-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ProductCard, SelectOptionType, SortByPriceMap } from "@/types";
+
 import ProductListFilter from "@/components/product-list/filter.vue";
 import ProductListItem from "@/components/product-list/item.vue";
 
@@ -43,47 +45,53 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const isProductsLoading = ref(true);
+const isProductsLoading = ref<boolean>(true);
 
-const selectedSort = ref({});
-const sortOptions = [
+const selectedSort = ref<SelectOptionType>({});
+const sortOptions: SelectOptionType[] = [
   {
-    id: 0,
+    id: "0",
     name: "Цена по возрастанию",
   },
   {
-    id: 1,
+    id: "1",
     name: "Цена по убыванию",
   },
 ];
 
-const selectedMaterial = ref({});
-const materailsOptions = ref([]);
+const selectedMaterial = ref<SelectOptionType>({});
+const materailsOptions = ref<SelectOptionType[]>([]);
 
-const sortByPrice = {
-  0: (arr) => arr.sort((a, b) => a.price.current_price - b.price.current_price), // asc
-  1: (arr) => arr.sort((a, b) => b.price.current_price - a.price.current_price), // desc
+const sortByPrice: SortByPriceMap = {
+  0: (arr: ProductCard[]): ProductCard[] =>
+    arr.sort((a, b) => a.price.current_price - b.price.current_price), // asc
+  1: (arr: ProductCard[]): ProductCard[] =>
+    arr.sort((a, b) => b.price.current_price - a.price.current_price), // desc
 };
 
-const products = computed(() => store.getters["products/products"]);
+const products = computed<ProductCard[]>(() => store.state.products.products);
 
-const filteredProducts = computed(() => {
-  const filteredProducts = products.value.filter(
-    (product) => product.material === +selectedMaterial.value?.id,
+const filteredProducts = computed<ProductCard[]>(() => {
+  const filteredProducts: ProductCard[] = products.value.filter(
+    (product: ProductCard) => product.material === +selectedMaterial.value?.id,
   );
 
-  const isSelectedMaterialEmpty = !Object.keys(selectedMaterial.value).length;
+  const isSelectedMaterialEmpty: boolean = !Object.keys(selectedMaterial.value)
+    .length;
 
   return isSelectedMaterialEmpty ? products.value : filteredProducts;
 });
 
 const filteredAndSortedProducts = computed(() =>
-  sortByPrice[selectedSort.value.id](filteredProducts.value),
+  sortByPrice[selectedSort.value?.id](filteredProducts.value),
 );
 
-const manageCart = (product) => store.dispatch("cart/manageCart", product);
-const manageFavorite = (product) =>
+const manageCart = (product: ProductCard): void => {
+  store.dispatch("cart/manageCart", product);
+};
+const manageFavorite = (product: ProductCard): void => {
   store.dispatch("favorite/manageFavorite", product);
+};
 
 onMounted(async () => {
   try {
@@ -132,12 +140,6 @@ onMounted(async () => {
   height: 352px;
 }
 
-@media (min-width: 616px) {
-  .product-list__filter {
-    gap: 24px;
-  }
-}
-
 @media (min-width: 768px) {
   .product-list__filter {
     justify-content: flex-start;
@@ -154,10 +156,4 @@ onMounted(async () => {
     width: 336px;
   }
 }
-
-/* @media (min-width: 791px) {
-  .product-list__items {
-    grid-gap: 42px;
-  }
-} */
 </style>

@@ -15,18 +15,16 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 export default {
-  name: 'favorite-icon'
-}
+  name: "favorite-icon",
+};
 </script>
 
-<script setup>
-defineProps({
-  isInFavorite: {
-    type: Boolean,
-    requrired: false,
-    default: false
-  }
-})
+<script setup lang="ts">
+import { FavoriteIconProps } from "@/types/props";
+
+withDefaults(defineProps<FavoriteIconProps>(), {
+  isInFavorite: false,
+});
 </script>

@@ -31,18 +31,16 @@
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "cart-icon",
 };
 </script>
 
-<script setup>
-defineProps({
-  isInCart: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
+<script setup lang="ts">
+import { CartIconProps } from "@/types/props";
+
+withDefaults(defineProps<CartIconProps>(), {
+  isInCart: false,
 });
 </script>

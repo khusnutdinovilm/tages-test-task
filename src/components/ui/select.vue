@@ -36,44 +36,31 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "ui-select",
 };
 </script>
 
-<script setup>
+<script setup lang="ts">
+import { SelectOptionType } from "@/types";
+import { UiSelectProps } from "@/types/props";
+import { UiSelectEmits } from "@/types/emits";
+
 import { ref } from "vue";
 
-const props = defineProps({
-  labelText: {
-    type: String,
-    required: true,
-  },
-  options: {
-    type: Array,
-    required: true,
-  },
-  emptyOption: {
-    type: String,
-    required: false,
-  },
-  modelValue: {
-    type: Object,
-    required: true,
-  },
-});
+const props = defineProps<UiSelectProps>();
+const emits = defineEmits<UiSelectEmits>();
 
-const selectedOption = ref(props.modelValue);
+const selectedOption = ref<SelectOptionType>(props.modelValue);
 
-const emits = defineEmits(["update:modelValue"]);
-const isSelectOptionsOpen = ref(false);
+const isSelectOptionsOpen = ref<boolean>(false);
 
-const toggleOptionsList = () => {
+const toggleOptionsList = (): void => {
   isSelectOptionsOpen.value = !isSelectOptionsOpen.value;
 };
 
-const selectOption = (option) => {
+const selectOption = (option: SelectOptionType) => {
   emits("update:modelValue", option);
   selectedOption.value = option;
   toggleOptionsList();
