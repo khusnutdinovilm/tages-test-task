@@ -1,19 +1,29 @@
-# tages-test-task
+# Тестовое задание от "Тагес Джамп"
 
-## Project setup
+## Настройка проекта
+Склонируйте репозиторий:
+```
+git clone https://github.com/khusnutdinovilm/tages-test-task.git
+```
+Затем выполните следующую команду:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Сборка и hot-reloads для разработки
+Чтобы собрать проект и запустить локальный сервер, выполните данную команду:
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Сборка и минификация для prod-версии
+Чтобы собрать проект для публикации, выполните данную команду:
 ```
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Сборка проекта и публикация на Github Pages
+Чтобы опубликовать проект на Github Page, выполните данную команду:
+```
+npm run deploy
+```
