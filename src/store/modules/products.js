@@ -1,4 +1,4 @@
-import { prefixUrl } from "@/utils";
+import { getProducts, getMaterials } from "@/api";
 
 export default {
   namespaced: true,
@@ -16,11 +16,21 @@ export default {
   actions: {
     async getProducts({ commit }) {
       try {
-        const url = prefixUrl + "db/items.json";
-        const response = await fetch(url);
+        const response = await getProducts();
         const products = await response.json();
+
         commit("setProducts", products);
-      } catch (error) {}
+      } catch (error) {
+        alert(error.message);
+      }
+    },
+    async getMaterials() {
+      try {
+        const response = await getMaterials();
+        return await response.json();
+      } catch (error) {
+        alert(error.message);
+      }
     },
   },
 };

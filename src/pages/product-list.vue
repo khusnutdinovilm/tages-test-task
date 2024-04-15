@@ -34,8 +34,6 @@
 </template>
 
 <script setup>
-import { prefixUrl } from "@/utils";
-
 import ProductListFilter from "@/components/product-list/filter.vue";
 import ProductListItem from "@/components/product-list/item.vue";
 
@@ -47,7 +45,8 @@ const store = useStore();
 
 const isProductsLoading = ref(true);
 
-const sortOptions = ref([
+const selectedSort = ref({});
+const sortOptions = [
   {
     id: 0,
     name: "Цена по возрастанию",
@@ -56,18 +55,10 @@ const sortOptions = ref([
     id: 1,
     name: "Цена по убыванию",
   },
-]);
-const selectedSort = ref({});
+];
 
 const selectedMaterial = ref({});
 const materailsOptions = ref([]);
-const getMaterials = async () => {
-  const url = prefixUrl + "db/materials.json";
-  try {
-    const response = await fetch(url);
-    return await response.json();
-  } catch (error) {}
-};
 
 const sortByPrice = {
   0: (arr) => arr.sort((a, b) => a.price.current_price - b.price.current_price), // asc
@@ -78,7 +69,7 @@ const products = computed(() => store.getters["products/products"]);
 
 const filteredProducts = computed(() => {
   const filteredProducts = products.value.filter(
-    (product) => product.material === +selectedMaterial.value?.id
+    (product) => product.material === +selectedMaterial.value?.id,
   );
 
   const isSelectedMaterialEmpty = !Object.keys(selectedMaterial.value).length;
@@ -87,25 +78,24 @@ const filteredProducts = computed(() => {
 });
 
 const filteredAndSortedProducts = computed(() =>
-  sortByPrice[selectedSort.value.id](filteredProducts.value)
+  sortByPrice[selectedSort.value.id](filteredProducts.value),
 );
 
 const manageCart = (product) => store.dispatch("cart/manageCart", product);
-const manageFavorite = async (product) => {
-  try {
-    store.dispatch("favorite/manageFavorite", product);
-  } catch (error) {}
-};
+const manageFavorite = (product) =>
+  store.dispatch("favorite/manageFavorite", product);
 
 onMounted(async () => {
   try {
-    selectedSort.value = sortOptions.value[0];
-    materailsOptions.value = (await getMaterials()) || [];
+    selectedSort.value = sortOptions[0];
+    materailsOptions.value = await store.dispatch("products/getMaterials");
 
     await store.dispatch("products/getProducts");
-
+  } catch (error) {
+    throw error;
+  } finally {
     isProductsLoading.value = false;
-  } catch (error) {}
+  }
 });
 </script>
 

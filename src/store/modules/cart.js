@@ -15,6 +15,8 @@ export default {
     },
     deleteFromCart(state, cartItem) {
       let idx = state.cartItems.findIndex((item) => item.id === cartItem.id);
+      if (idx === -1) return;
+
       state.cartItems.splice(idx, 1);
       localStorage.setItem("cart-items", JSON.stringify(state.cartItems));
     },
