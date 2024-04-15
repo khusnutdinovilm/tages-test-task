@@ -59,20 +59,13 @@ watch(selectedMaterial, () =>
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-@media (min-width: 616px) {
-  .product-list__filter {
-    gap: 24px;
-  }
+  gap: 24px;
+  margin-bottom: 41px;
 }
 
 @media (min-width: 768px) {
   .product-list-filter__wrapper {
     justify-content: flex-start;
-    margin-bottom: 41px;
   }
 }
 </style>

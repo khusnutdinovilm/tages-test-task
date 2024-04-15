@@ -1,7 +1,7 @@
 <template>
   <page-container
     :loading-content="isProductsLoading"
-    :page-content-empty="!products.length"
+    :page-content-empty="!products.length && !isProductsLoading"
   >
     <template #page-title> Комплекты стеллажных систем </template>
 
@@ -132,9 +132,14 @@ onMounted(async () => {
   display: grid;
   max-width: inherit;
   grid-template-columns: repeat(auto-fill, 288px);
-  grid-template-rows: repeat(auto-fill, 360px);
+  grid-template-rows: repeat(auto-fill, 352px);
   justify-content: center;
   grid-gap: 24px;
+}
+
+.product-list__item {
+  width: 288px;
+  height: 352px;
 }
 
 @media (min-width: 616px) {
@@ -153,7 +158,10 @@ onMounted(async () => {
     grid-template-columns: repeat(auto-fill, 336px);
     justify-content: start;
     grid-gap: 42px;
+  }
 
+  .product-list__item {
+    width: 336px;
   }
 }
 

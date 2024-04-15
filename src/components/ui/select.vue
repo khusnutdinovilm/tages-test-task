@@ -138,7 +138,6 @@ const selectOption = (option) => {
 
 .ui-select__options_open {
   height: auto;
-  border-top: 1px solid black;
 }
 
 .ui-select__option {

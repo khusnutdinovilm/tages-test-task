@@ -80,16 +80,15 @@ const getLocalePrice = (price) => {
 
 .product-card__wrapper {
   position: relative;
-  /* max-width: 336px; */
-  max-width: 310px;
-  height: 352px;
   border: 1px solid var(--card-border-color);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: space-between;
-  gap: 23px;
   padding: 9px 12px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .product-card__has-discount {
