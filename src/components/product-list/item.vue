@@ -5,7 +5,11 @@
 
       <div class="product-card__top">
         <div class="product-card__image">
-          <img :src="require(`@/assets/img/${product.image.url}`)" />
+          <picture>
+            <source :srcset="require(`@/assets/img/${product.image.url}.webp`)" type="image/webp"/>
+            <source :srcset="require(`@/assets/img/${product.image.url}.jpg`)" type="image/jpeg"/>
+            <img :src="require(`@/assets/img/${product.image.url}.png`)" :alt="`product.image.url`"/>
+          </picture>
         </div>
       </div>
 
