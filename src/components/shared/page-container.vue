@@ -12,15 +12,15 @@
       <div v-if="loadingContent" class="page-container__page-content-loading">
         <div class="loader"></div>
       </div>
-      <div
+      <section
         v-else-if="pageContentEmpty"
         class="page-container__page-content-empty"
       >
         <slot name="page-content-empty" />
-      </div>
-      <div v-else class="page-container__content">
+      </section>
+      <section v-else class="page-container__content">
         <slot name="page-content" />
-      </div>
+      </section>
     </div>
   </main>
 </template>
@@ -44,8 +44,8 @@ withDefaults(defineProps<PageContainerProps>(), {
 </script>
 
 <style>
-.page-container {
-}
+/* .page-container {
+} */
 
 .page-container__wrapper {
   max-width: 1512px;
@@ -57,8 +57,8 @@ withDefaults(defineProps<PageContainerProps>(), {
   padding: 32px 12px 103px;
 }
 
-.page-container__breadcrumbs {
-}
+/* .page-container__breadcrumbs {
+} */
 
 .page-container__page-title {
   font-family: var(--secondary-font-style);

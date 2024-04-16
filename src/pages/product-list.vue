@@ -115,8 +115,8 @@ onMounted(async () => {
   line-height: 28px;
 }
 
-.product-list {
-}
+/* .product-list {
+} */
 
 .product-list__filter {
   display: flex;
